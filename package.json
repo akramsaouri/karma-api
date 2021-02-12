@@ -2,12 +2,11 @@
   "name": "karma-api",
   "version": "1.0.0",
   "scripts": {
-    "tsc": "tsc",
+    "build": "tsc",
     "watch-tsc": "tsc -w",
-    "deploy": "node dist/src/server.js",
-    "watch-deploy": "nodemon dist/src/server.js",
-    "dev": "concurrently \"npm run watch-tsc\" \"npm run watch-deploy\"",
-    "start": "tsc && npm run deploy"
+    "watch-js": "nodemon dist/src/server.js",
+    "dev": "concurrently \"npm run watch-tsc\" \"npm run watch-js\"",
+    "start": "node dist/src/server.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
