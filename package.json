@@ -6,7 +6,8 @@
     "watch-tsc": "tsc -w",
     "watch-js": "nodemon dist/src/server.js",
     "dev": "concurrently \"npm run watch-tsc\" \"npm run watch-js\"",
-    "start": "node dist/src/server.js"
+    "start": "node dist/src/server.js",
+    "heroku-postbuild": "echo Skip build on Heroku"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -27,5 +28,6 @@
     "@types/mongoose": "^5.5.0",
     "concurrently": "^4.1.0",
     "nodemon": "^1.19.0"
-  }
+  },
+  "heroku-run-build-script": true
 }
