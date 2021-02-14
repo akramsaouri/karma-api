@@ -2,6 +2,7 @@ import { Router, Response } from "express";
 import { check, validationResult } from "express-validator/check";
 import HttpStatusCodes from "http-status-codes";
 
+import { getEnv } from "../../../config/env";
 import Transaction, { allowedTransactions } from "../../models/Transaction";
 import Balance from "../../models/Balance";
 import Request from "../../types/Request";
@@ -58,7 +59,7 @@ router.post(
         },
       };
       await Balance.findOneAndUpdate(
-        { _id: process.env.BALANCE_ID },
+        { _id: getEnv("BALANCE_ID") },
         // @ts-ignore
         update
       );

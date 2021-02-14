@@ -4,13 +4,14 @@ import HttpStatusCodes from "http-status-codes";
 
 import Reason from "../../models/Reason";
 import Request from "../../types/Request";
+import { withoutAddReason } from "../../utils";
 
 const router: Router = Router();
 
 router.get("/", async (_: Request, res: Response) => {
   try {
     const reasons = await Reason.find();
-    res.json(reasons);
+    res.json(reasons.filter(withoutAddReason));
   } catch (err) {
     console.log(err.message);
     res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).send("Server Error");

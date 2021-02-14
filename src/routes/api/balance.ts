@@ -1,6 +1,7 @@
 import { Router, Response } from "express";
 import HttpStatusCodes from "http-status-codes";
 
+import { getEnv } from "../../../config/env";
 import Balance from "../../models/Balance";
 import Request from "../../types/Request";
 
@@ -9,7 +10,7 @@ const router: Router = Router();
 router.get("/", async (_: Request, res: Response) => {
   try {
     const balance = await Balance.findOne({
-      _id: process.env.BALANCE_ID,
+      _id: getEnv("BALANCE_ID"),
     });
     res.json({ balance });
   } catch (err) {
