@@ -1,21 +1,19 @@
-interface Config {
-  values: Values;
-}
+const config = {
+  values: new Map(),
+};
 
-type Values = {
+type InitialValues = {
   [key: string]: string;
 };
 
-const config: Config = {
-  values: {},
-};
-
-export const initEnv = (values: Values) => {
-  config.values = values;
+export const initEnv = (values: InitialValues) => {
+  Object.entries(values).forEach((entry) => {
+    config.values.set(entry[0], entry[1]);
+  });
 };
 
 export const getEnv = (key: string) => {
-  const value = config.values[key];
+  const value = config.values.get(key);
   if (!value) console.warn(`No env value found for key: ${key}.`);
   return value;
 };
