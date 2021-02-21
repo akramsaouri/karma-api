@@ -59,7 +59,7 @@ router.post(
         },
       };
       await Balance.findOneAndUpdate(
-        { _id: getEnv("BALANCE_ID") },
+        { _id: process.env.BALANCE_ID },
         // @ts-ignore
         update
       );

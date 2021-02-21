@@ -10,7 +10,7 @@ const router: Router = Router();
 router.get("/", async (_: Request, res: Response) => {
   try {
     const balance = await Balance.findOne({
-      _id: getEnv("BALANCE_ID"),
+      _id: process.env.BALANCE_ID,
     });
     res.json({ balance });
   } catch (err) {

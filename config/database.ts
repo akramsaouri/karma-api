@@ -4,7 +4,7 @@ import { getEnv } from "./env";
 
 const connectDB = async () => {
   try {
-    const mongoURI: string = getEnv("MONGO_URI");
+    const mongoURI: string = process.env.MONGO_URI;
     const options: ConnectionOptions = {
       useNewUrlParser: true,
       useCreateIndex: true,

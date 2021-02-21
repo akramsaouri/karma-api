@@ -3,7 +3,6 @@ import express from "express";
 import dotenv from "dotenv";
 
 import connectDB from "../config/database";
-import { initEnv } from "../config/env";
 import reason from "./routes/api/reason";
 import transaction from "./routes/api/transaction";
 import balance from "./routes/api/balance";
@@ -14,8 +13,6 @@ const result = dotenv.config();
 if (result.error) {
   console.warn(result.error);
 }
-console.log({ parsed: result.parsed });
-initEnv(result.parsed);
 connectDB();
 
 app.set("port", process.env.PORT || 5000);
