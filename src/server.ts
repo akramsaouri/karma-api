@@ -11,7 +11,12 @@ import balance from "./routes/api/balance";
 const app = express();
 
 const result = dotenv.config();
-initEnv(result.parsed);
+if (result.error) {
+  console.warn(result.error);
+}
+if (result.parsed) {
+  initEnv(result.parsed);
+}
 connectDB();
 
 app.set("port", process.env.PORT || 5000);
