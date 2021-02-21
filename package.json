@@ -6,7 +6,7 @@
     "watch-tsc": "tsc -w",
     "watch-js": "nodemon dist/src/server.js",
     "dev": "concurrently \"npm run watch-tsc\" \"npm run watch-js\"",
-    "start": "tsc && node dist/src/server.js",
+    "start": "node dist/src/server.js",
     "heroku-postbuild": "npm run build"
   },
   "dependencies": {
