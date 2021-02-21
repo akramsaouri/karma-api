@@ -14,9 +14,8 @@ const result = dotenv.config();
 if (result.error) {
   console.warn(result.error);
 }
-if (result.parsed) {
-  initEnv(result.parsed);
-}
+console.log({ parsed: result.parsed });
+initEnv(result.parsed);
 connectDB();
 
 app.set("port", process.env.PORT || 5000);
