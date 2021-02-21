@@ -11,9 +11,6 @@ import balance from "./routes/api/balance";
 const app = express();
 
 const result = dotenv.config();
-if (result.error) {
-  throw result.error;
-}
 initEnv(result.parsed);
 connectDB();
 
