@@ -1,7 +1,6 @@
 import { Router, Response } from "express";
 import HttpStatusCodes from "http-status-codes";
 
-import { getEnv } from "../../../config/env";
 import Balance from "../../models/Balance";
 import Request from "../../types/Request";
 

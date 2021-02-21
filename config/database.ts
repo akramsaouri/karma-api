@@ -1,7 +1,5 @@
 import { ConnectionOptions, connect } from "mongoose";
 
-import { getEnv } from "./env";
-
 const connectDB = async () => {
   try {
     const mongoURI: string = process.env.MONGO_URI;
