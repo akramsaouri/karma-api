@@ -34,10 +34,18 @@ router.get("/", async (_: Request, res: Response) => {
 
   const projectFields = {
     $project: {
-      _id: 0,
-      totalAmount: 1,
+      _id: {
+        $first: "$transactions._id",
+      },
       transactions: 1,
-      date: "$_id",
+      meta: {
+        amount: "$totalAmount",
+        date: {
+          $dateFromString: {
+            dateString: "$_id",
+          },
+        },
+      },
     },
   };
   try {
@@ -46,7 +54,7 @@ router.get("/", async (_: Request, res: Response) => {
       { $unwind: "$reason" },
       groupByDate,
       projectFields,
-    ]).sort({ date: -1 });
+    ]).sort({ "meta.date": -1 });
     return res.json(transactions);
   } catch (err) {
     console.log(err.message);
