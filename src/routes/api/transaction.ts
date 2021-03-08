@@ -9,23 +9,45 @@ import Request from "../../types/Request";
 const router: Router = Router();
 
 router.get("/", async (_: Request, res: Response) => {
-  try {
-    const transactions = await Transaction.find().populate("reason");
-    transactions.reverse();
-    const sum = transactions.reduce(
-      (acc: number, curr: any) => acc + curr.amount,
-      0
-    );
-    return res.json([
-      {
-        id: "hardcodedsection",
-        meta: {
-          date: "This month",
-          sum,
-        },
-        transactions,
+  const reasonPopulate = {
+    $lookup: {
+      from: "reasons",
+      localField: "reason",
+      foreignField: "_id",
+      as: "reason",
+    },
+  };
+
+  const groupByDate = {
+    $group: {
+      _id: {
+        $dateToString: { format: "%Y-%m-%d", date: "$createdAt" },
       },
-    ]);
+      totalAmount: {
+        $sum: "$amount",
+      },
+      transactions: {
+        $push: "$$ROOT",
+      },
+    },
+  };
+
+  const projectFields = {
+    $project: {
+      _id: 0,
+      totalAmount: 1,
+      transactions: 1,
+      date: "$_id",
+    },
+  };
+  try {
+    const transactions = await Transaction.aggregate([
+      reasonPopulate,
+      { $unwind: "$reason" },
+      groupByDate,
+      projectFields,
+    ]).sort({ date: -1 });
+    return res.json(transactions);
   } catch (err) {
     console.log(err.message);
     res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).send("Server Error");
